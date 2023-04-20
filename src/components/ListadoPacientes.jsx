@@ -15,15 +15,6 @@ const ListadoPacientes = () => {
         </p>
 
         <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
-        <Pacientes/>
         
     </div>
   )
