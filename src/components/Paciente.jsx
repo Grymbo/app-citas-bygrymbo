@@ -1,5 +1,5 @@
 
-const Pacientes = () => {
+const Paciente = () => {
   return (
     <div className=" m-3 bg-white shadow-md px-5 py-10 rounded-xl">
           <p className=" font-bold mb-3 text-gray-700 uppercase">
@@ -40,4 +40,4 @@ const Pacientes = () => {
   )
 }
 
-export default Pacientes
+export default Paciente
