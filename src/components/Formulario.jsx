@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Error from "./Error";
 
-const Formulario = ({ pacientes, setPacientes }) => {
+const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
 
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
@@ -10,6 +10,17 @@ const Formulario = ({ pacientes, setPacientes }) => {
   const [sintomas, setSintomas] = useState('');
 
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if(Object.keys(paciente).length > 0) {
+      setNombre(paciente.nombre)
+      setPropietario(paciente.propietario)
+      setEmail(paciente.email)
+      setAlta(paciente.alta)
+      setSintomas(paciente.sintomas)
+    }
+  }, [paciente])
+  
 
   // 1genera un id aleatorio, para el uso de la key
   const generarId = () => {
@@ -39,10 +50,20 @@ const Formulario = ({ pacientes, setPacientes }) => {
       email,
       alta,
       sintomas,
-      id: generarId()
     }
 
-    setPacientes([...pacientes, objetoPacientes]);
+    if(paciente.id) {
+      // Editando el registro
+      objetoPacientes.id = paciente.id
+      const pacienteActualizado = pacientes.map( pacienteState => pacienteState.id === paciente.id ? objetoPacientes : pacienteState)
+      setPacientes(pacienteActualizado);
+      setPaciente({});
+
+    } else {
+      // Nuevo registro
+      objetoPacientes.id = generarId()
+      setPacientes([...pacientes, objetoPacientes]);
+    }
 
     // Reinicio del formulario
     setNombre('');
@@ -153,7 +174,7 @@ const Formulario = ({ pacientes, setPacientes }) => {
         <input 
           type="submit"
           className=" bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-          value="Agregar Mascota" 
+          value={paciente.id ? 'Guardar Cambios' : 'Agregar Mascota'} 
         />
       </form>
 
